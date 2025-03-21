@@ -1,0 +1,338 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  grid-template-rows: 120px 50px 1fr auto;
+    grid-template-areas:
+        "header header"
+        "nav nav"
+        "aside main"
+        "footer footer";
+  grid-gap: 3px;/* відступи між елементами сітки */
+  height: 100vh; /* висота контейнера 100% висоти вікна браузера */
+}
+
+
+header {
+    grid-area: header;
+    background-color: #f1f1f1;
+    /* padding: 0px; */
+    text-align: center;
+    line-height: 0px;
+    /* font-family: "Spectral", serif; */
+    font-weight: bold; 
+    
+  
+}
+
+
+
+
+
+nav {
+    grid-area: nav;
+    background-color: #e9afaf;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000000;
+}
+
+
+aside {
+  grid-area: aside;
+  background-color: #f1f1f1;
+  padding: 10px;
+  text-align: left;
+  color: #000000;
+}
+
+main {
+  grid-area: main;
+  background-color: #f1f1f1;
+  padding: 10px;
+}
+
+footer {
+  grid-area: footer;
+  background-color: #f1f1f1;
+  text-align: center;
+  line-height: 50px;
+}
+
+
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 10px; /* Відступи між елементами */
+    color: #000000;
+}
+
+
+nav ul li {
+  display: inline-block;
+  margin-right: 10px;
+  padding: 5px;
+}
+
+aside ul li {
+  
+    padding: 0;
+    margin: 10px 0;
+}
+
+h1 {
+    font-size: 44px;
+    color: #c96868;
+   
+}
+
+h2 {
+    font-size: 26px;
+    color: #000000;
+    
+}
+
+p {
+    font-size: 16px;
+    color: #666;
+}
+
+section {
+    text-align: center; 
+}
+
+form {
+    display: flex;
+    flex-direction: column; /* Поля розташовуються один під одним */
+    align-items: center; /* Центруємо елементи всередині */
+    gap: 2px; /* відстань між елементами */
+}
+
+input, select, textarea {
+    width: 100%; 
+    max-width: 400px; 
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button {
+    width: 200px; 
+    padding: 10px;
+    background-color: #da80ba;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #d054ca;
+}
+
+
+#baner {
+    width: 100%;
+    overflow: hidden; /* Запобігає появі скролу */
+}
+
+#baner img {
+    width: 100%;
+    height: auto; /* Автоматично змінює висоту, зберігаючи пропорції */
+    display: block; /* Усуває зайві відступи */
+    opacity: 0.83; /* 0 - повністю прозоре, 1 - непрозоре */
+}
+
+#logo {
+    display: flex;
+    justify-content: flex-end; /* вирівнює все в праву частину */
+    align-items: center; /* вертикальне вирівнювання по центру */
+    position: relative;/* відносно позиціонуємо */
+}
+
+
+#logo img {
+    max-width: 150px; /* Задає максимальну ширину */
+    height: auto;
+}
+
+
+
+#logo p1 {
+    margin-left: 32.6%;
+    transform: translateX(-2%);/* вирівнюємо по центру */
+    font-size: 14px;
+    color: #666;
+    text-align: right;
+    line-height: 1.5; /* регулює відстань між рядками */
+}
+
+
+
+
+p.big_gray {
+    font-size: 20px;
+    color: #4e4343;
+}
+
+div#catalog {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+}
+
+/* div.item {
+    flex-basis: calc(33% - 40px);
+    width: 200px;
+    margin: 20px;
+    padding: 20px;
+    background-color: #f0ddcb;
+    border: 1px solid #ccc;
+    text-align: left;
+    box-shadow: #666 2px 2px 5px;
+    box-sizing: border-box;
+} */
+
+
+div.item {
+    display: flex;
+    align-items: center;
+    flex-basis: calc(33% - 40px);
+    width: 280px;
+    margin: 20px;
+    padding: 20px;
+    background-color: #f0ddcb;
+    border: 1px solid #ccc;
+    text-align: left;
+    box-shadow: #666 2px 2px 5px;
+    box-sizing: border-box;
+}
+
+div.item img {
+    max-width: 120px;
+    margin-right: 15px;
+}
+
+div.item-info {
+    display: flex;
+    flex-direction: column; /* Вирівнюємо в стовпчик */
+    gap: 5px; /* Відстань між рядками */
+    text-align: right;
+}
+
+.item-title {
+    font-weight: bold;
+    font-size: 18px;
+    color: #333;
+    text-align: right;
+}
+
+.item-description {
+    font-size: 14px;
+    color: #666;
+    text-align: right;
+}
+
+.item-price {
+    font-size: 16px;
+    font-weight: bold;
+    color: #d60c0c;
+    text-align: right;
+}
+
+.item-price span {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: right;
+}
+
+
+
+
+div.item:hover {
+    box-shadow: #949494 2px 2px 40px;
+    background-color: #ceaa87;
+}
+   
+
+@media(max-width: 768px) {
+    div.item {
+        flex-basis: calc(80%);  /*кожен елемент займає всю ширину контейнера*/
+        margin: 10px 0; /* відступи тільки зверху і знизу*/
+    }
+
+    .grid-container {
+        
+        grid-template-columns: 1fr;
+        grid-template-rows: 100px 50px 1fr auto auto;
+        grid-template-areas:
+            "header"
+            "nav"
+            "aside"
+            "main"
+            "footer";
+    }
+    header {
+        text-align: left; /* Вирівнюємо текст вліво для мобільних пристроїв */
+        justify-content: center; 
+        padding: 0 15px; /* Відступи для зручності */
+        font-size: 30px;
+        width: 100%;
+        flex-direction: column;
+    }
+
+    #logo {
+       
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        
+    }
+
+    #logo img {
+        margin: 0 auto;
+       
+    }
+
+    #logo p1 {
+        font-size: 11px; 
+        position: relative;
+        right: auto;
+        text-align: left;
+        bottom: 0;
+        margin-top: 2px;
+        margin-left: 32.6%;
+    }
+
+
+    
+
+    #baner img {
+        height: 250px; /* Менший банер на телефонах */
+        object-fit: cover; /* Обрізає зайве, зберігаючи композицію */
+    }
+
+    main {
+        width: 100%;
+        padding: 10px;
+    }
+
+    input, select, textarea {
+        width: 100%;
+    }
+
+    button {
+        width: 100%;
+    }
+}

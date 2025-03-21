@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="uk">
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Contacts</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/> 
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><strong><a href="./index.html" >Home</a></strong></li>
+            <li><a href="./about.html">About us</a></li>
+            <li><strong><a href="#">Contacts</a></strong></li>
+        </ul>
+    </nav>
+    
+    <main>
+        <h1>Контакти</h1>
+        Керівник: <strong>Стельмах Марія </strong> </br>
+        Телефон: <a href="tel:098-9383-2929"> 098-9383-2929 </a> </br>
+        Пошта: <a href="email:maha20051984@gmail.com">maha20051984@gmail.com </a> </br>
+        
+        <section>
+            <h2>Залиште своє питання</h2>
+            <form>
+                <label for="first_name">Ваше ім'я</label>
+                <input type="text" placeholder="Марія" id="first_name" name="first_name" required/>
+                <br><br/>
+                <label for="email">Ваш емейл</label>
+                <input type="email" placeholder="my@gmail.com" id="email" name="email" required/>
+                <br><br/>
+                <label for="phone">Ваш номер телефону</label>
+                <input type="tel" placeholder="09875732323" id="phone" name="phone"/>
+                <br><br/>
+                <select id="user_appeal" name="user_appeal" required>
+                    <option value="povernenna_tov">Повернення товару</option>
+                    <option value="skarga">Написати скаргу</option>
+                    <option value="problem_order">Проблеми з замовленням</option>
+                </select>
+                <br><br/>
+                <textarea id="msg" name="msg" placeholder="Коли вже знижки?" required rows="4" cols="50"></textarea>
+                <br><br/>
+                <button type="submit">Надіслати</button>
+            </form>
+         
+        </section>
+        
+     
+        <br> 
+        <br> 
+        <br> 
+        
+    </main>
+
+    <footer>
+        <p>© 2025 Rameniolla</p>
+
+    </footer>
+
+</body>
+</html>
