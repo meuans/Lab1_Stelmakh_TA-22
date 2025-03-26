@@ -25,9 +25,6 @@ header {
 }
 
 
-
-
-
 nav {
     grid-area: nav;
     background-color: #e9afaf;
@@ -41,7 +38,8 @@ nav {
 
 aside {
   grid-area: aside;
-  background-color: #f1f1f1;
+  background-color: #e9afaf;
+  background-color: rgba(233, 175, 175, 0.4);
   padding: 10px;
   text-align: left;
   color: #000000;
@@ -60,29 +58,83 @@ footer {
   line-height: 50px;
 }
 
+nav a {
+    text-decoration: none;
+    color: #ffffff;
+    text-transform: none ;
+    transition: 0.25s ease; /* Плавна зміна кольору при наведенні */
+    font-weight: normal !important;
+   
+    display: block; /* Робить посилання клікабельним на всю ширину */
+    padding: 10px 15px; /* Додає відступи для кращого UX */
+}
 
+aside a {
+    text-decoration: none;
+    color: #545050;
+    text-transform: none ;
+    transition: 0.25s ease; /* Плавна зміна кольору при наведенні */
+    font-weight: normal !important;
+}
 
 nav ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
     display: flex;
+
+    flex-wrap: wrap;
+
+
     gap: 10px; /* Відступи між елементами */
     color: #000000;
 }
 
 
 nav ul li {
-  display: inline-block;
+  display: inline-block; 
   margin-right: 10px;
   padding: 5px;
+
+  list-style: none;
+  flex-wrap: wrap;
 }
+
+nav ul:hover a {
+    color: #575757;
+   
+}
+
+nav ul :hover a:hover {
+    color: #ffffff;
+    box-shadow: 0 2px 0 0 currentColor;
+    border-bottom: none;
+    box-shadow: none;
+}
+
 
 aside ul li {
   
     padding: 0;
     margin: 10px 0;
 }
+
+aside ul:hover a {
+    color: #575757;
+   
+    
+}
+
+aside ul :hover a:hover {
+    color: #e870c6;
+    box-shadow: 0 2px 0 0 currentColor;
+    border-bottom: none;
+    box-shadow: none;
+}
+
+
+
+
 
 h1 {
     font-size: 44px;
@@ -229,6 +281,7 @@ div.item-info {
     flex-direction: column; /* Вирівнюємо в стовпчик */
     gap: 5px; /* Відстань між рядками */
     text-align: right;
+
 }
 
 .item-title {
@@ -263,6 +316,8 @@ div.item-info {
 div.item:hover {
     box-shadow: #949494 2px 2px 40px;
     background-color: #ceaa87;
+    transform: scale(1.1); /* Збільшуємо елемент на 10% */
+    transition: all 0.2s; /* Плавна анімація */
 }
    
 
@@ -292,6 +347,14 @@ div.item:hover {
         flex-direction: column;
     }
 
+    
+    
+    aside {
+        
+        justify-content: center; 
+        width: 100%;
+    }
+
     #logo {
        
         justify-content: center;
@@ -301,7 +364,8 @@ div.item:hover {
     }
 
     #logo img {
-        margin: 0 auto;
+       
+        justify-content: center; 
        
     }
 
@@ -315,13 +379,6 @@ div.item:hover {
         margin-left: 32.6%;
     }
 
-
-    
-
-    #baner img {
-        height: 250px; /* Менший банер на телефонах */
-        object-fit: cover; /* Обрізає зайве, зберігаючи композицію */
-    }
 
     main {
         width: 100%;
