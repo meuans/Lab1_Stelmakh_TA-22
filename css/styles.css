@@ -85,8 +85,6 @@ nav ul {
 
     flex-wrap: wrap;
 
-
-    gap: 10px; /* Відступи між елементами */
     color: #000000;
 }
 
@@ -107,8 +105,8 @@ nav ul:hover a {
 
 nav ul :hover a:hover {
     color: #ffffff;
-    box-shadow: 0 2px 0 0 currentColor;
-    border-bottom: none;
+    box-shadow: 0 2px 0 0 currentColor; 
+    border-bottom: none;  
     box-shadow: none;
 }
 
@@ -321,7 +319,7 @@ div.item:hover {
 }
    
 
-@media(max-width: 768px) {
+@media(max-width: 666px) {
     div.item {
         flex-basis: calc(80%);  /*кожен елемент займає всю ширину контейнера*/
         margin: 10px 0; /* відступи тільки зверху і знизу*/
