@@ -19,7 +19,13 @@
                 <p1>Київ, вулиця Хрещатик 38,<br>
                     тц TSUM, 2 поверх, 01001</p1>
             </div>
+        
+           
+
         </header>
+
+
+
         <nav class="horizontal-menu">
             <ul>
                 <li><strong><a href="./index.html">Home</a></strong></li>
@@ -43,6 +49,9 @@
         <main>
             <h2> Пропозиції дня</h2>
             <p> <br> Локшина, рамени, токпоккі, супи <br> <br> </p>
+            <button id="open-cart" class="cart-button">🛒 Кошик (<span id="cart-count">0</span>)</button>
+            <br><br>
+            
             <div id="catalog">
 
                 <div class="item">
@@ -128,12 +137,22 @@
 
 
           <div id = "modal">
-             <img id = "modal-image" src="./img/sticker1.webp" alt="Shim Shin Ramyun" height="120">
-             <div id = "modal-label"> lalala </div>
+             <img id = "modal-image" >
+             <div id = "modal-label"> </div>
              <button id = "close"> X </button>
                   
           </div>
           
+          <!--  вікно кошика -->
+            <div id="cart-modal" class="modal">
+                <div class="modal-content">
+                <h2>Кошик</h2>
+                <div id="cart-items"></div>
+                <p><strong>Загальна сума: <span id="cart-total">0</span> грн</strong></p>
+                <button id="close-cart">Закрити</button>
+                </div>
+            </div>
+  
 
     </div>
 
