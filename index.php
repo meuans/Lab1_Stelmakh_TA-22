@@ -111,7 +111,8 @@ if (isset($_GET['leftchoise'])) {
                     }
             ?>
 
-            
+          
+
     <form method="GET" action="" id="search-form">
     <input type="text" id="search-input" name="search" autocomplete="off" placeholder="Пошук товарів..."> <br>
     <button type="submit">🔍</button>

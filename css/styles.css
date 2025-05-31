@@ -604,12 +604,6 @@ div#modal-label {
     transition: opacity 0.2s ease;
 }
 
-.horizontal-menu a.active {
-    opacity: 1;
-    border-bottom: 2px solid #000;
-}
-
-
 
     .header-container {
         flex-direction: row; /* На великих екранах — горизонтально */
