@@ -50,10 +50,7 @@ document.querySelectorAll(".item").forEach((item) => {
 // Відкрити кошик
 const cartModal = document.getElementById("cart-modal");
 document.addEventListener("keydown", (e) => {
-    if (e.key === "c") { // натисни "с" — відкриється кошик
-        cartModal.style.display = "block";
-        updateCart();
-    }
+   
 });
 
 // Закрити кошик

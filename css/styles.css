@@ -345,6 +345,31 @@ button.add-to-cart:hover {
 
 
 
+  
+
+  .open-cart-button:hover {
+    padding: 8px 12px;
+    background-color: #e9afaf97;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    order: -1; /* Задає порядок елементів для Flexbox, ставить кнопку на початок */
+
+    display: inline-block; 
+  
+    padding: 5px;
+  
+   
+    flex-wrap: wrap;
+  }
+  
+  .open-cart-button:hover {
+    background-color: #e9afaf;
+  }
+  
+
 
 .item-title {
     font-weight: bold;
@@ -417,13 +442,6 @@ div#modal-label {
 
 
 
-
-
-
-
-
-
-
 .modal {
     display: none;
     position: fixed;
@@ -445,6 +463,12 @@ div#modal-label {
     border-radius: 12px;
   }
   
+  #cart-total {
+    font-weight: 900; 
+    color: #d60c0c; 
+  }
+
+  
   #cart-items div {
     display: flex;
     justify-content: space-between;
@@ -455,7 +479,10 @@ div#modal-label {
     margin: 0 5px;
   }
   
-  
+
+
+
+
 
 
 

@@ -1,3 +1,40 @@
+<?php 
+require __DIR__ . '/vendor/autoload.php';
+
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
+
+$httpClient = new Client([
+    
+    'timeout'  => 2.0,  
+    'headers' => [
+        'User-Agent' => 'GuzzleHttp/7.0',
+    ]
+]);
+
+
+ $leftMenu = [
+    "sweets" => "Солодощі",
+    "sauces" => "Соуси і паста",
+    "snacks" => "Снеки",
+    "ramen" => "Рамен",
+ ];
+
+
+ $selectedMenuL = null;
+ if (isset($_GET['leftchoise'])) {
+    $selectedMenuL = $_GET['leftchoise'];
+ } 
+ if (!array_key_exists($selectedMenuL, $leftMenu)) {
+    $selectedMenuL = null;
+        header("HTTP/1.1 404 Not Found");
+        echo "404 not found";
+        exit;
+ } 
+ 
+ 
+?>
+
 <!DOCTYPE html>
 <html lang="uk">
 <html>
@@ -28,29 +65,42 @@
 
         <nav class="horizontal-menu">
             <ul>
-                <li><strong><a href="./index.html">Home</a></strong></li>
+                <li><strong><a href="./index.php">Home</a></strong></li>
                 <li><a href="./about.html">About us</a></li>
                 <li><a href="./contacts.html">Contacts</a></li>
             </ul>
         </nav>
-
+        
         <aside id="left-menu">
             <h2>Каталог</h2>
-            <ul>
-                <li><a href="#">Солодощі</a></li>
-                <li><a href="#">Соуси і паста</a></li>
-                <li><a href="#">Снеки</a></li>
-                <li><a href="#">Рамен</a></li>
-            </ul>
+
+            <?php if ( isset($leftMenu) && is_array($leftMenu)) : ?>
+                <ul>
+                    <?php foreach ($leftMenu as $key => $value) : ?>
+                        <li><a href="?leftchoise=<?= $key ?>"><?= htmlspecialchars($value) ?></a></li>
+                    <?php endforeach; ?>
+                </ul>
+           <?php else : ?>
+                <p>Каталог порожній</p>
+            <?php endif; ?>
 
         </aside>
 
 
         <main>
-            <h2> Пропозиції дня</h2>
-            <p> <br> Локшина, рамени, токпоккі, супи <br> <br> </p>
-            <button id="open-cart" class="cart-button">🛒 Кошик (<span id="cart-count">0</span>)</button>
-            <br><br>
+            <?php if (null !== $selectedMenuL) : ?>
+                <h1><?= htmlspecialchars($leftMenu[$_GET['leftchoise']]) ?></h1>
+            <?php else : ?>
+                <h1>Ласкаво просимо до Rameniolla!</h1>
+            <?php endif; ?>
+            
+            <div class="main-content">
+                <h2> Пропозиції дня</h2>
+                <p> <br> Локшина, рамени, токпоккі, супи <br> <br> </p>
+                <button id="open-cart" class="cart-button">🛒 Кошик (<span id="cart-count">0</span>)</button>
+                <br> <br>
+            </div>
+            
             
             <div id="catalog">
 

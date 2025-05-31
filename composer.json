@@ -1,0 +1,13 @@
+{
+    "name": "maha2/asian_store_web",
+    "description": "asian_store",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Maha2\\AsianStoreWeb\\": "src/"
+        }
+    },
+    "require": {
+        "guzzlehttp/guzzle": "^7.9"
+    }
+}
