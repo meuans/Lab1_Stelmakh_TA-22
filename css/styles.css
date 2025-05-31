@@ -159,6 +159,13 @@ aside ul li a {
   }
   
 
+
+
+
+
+
+
+
   
 
 
@@ -504,6 +511,18 @@ div#modal-label {
         flex-basis: calc(80%);  /*кожен елемент займає всю ширину контейнера*/
         margin: 10px 0; /* відступи тільки зверху і знизу*/
     }
+    #catalog {
+    overflow-x: hidden;
+    width: 100%;
+}
+
+.item {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    overflow-wrap: break-word;
+}
+
 
     .grid-container {
         
@@ -569,9 +588,26 @@ div#modal-label {
         width: 100%;
     }
 
-    button {
-        width: 100%;
-    }
+   button {
+    width: auto;
+    max-width: 100%;
+}
+#search-form input[type="text"] {
+    width: 100%;
+    max-width: 100%;
+}
+
+.horizontal-menu a {
+    font-weight: bold;
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+.horizontal-menu a.active {
+    opacity: 1;
+    border-bottom: 2px solid #000;
+}
 
 
 

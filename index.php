@@ -54,17 +54,22 @@ if (isset($_GET['leftchoise'])) {
 
 <body>
     <div class="grid-container">
-        <header>
-            <!-- <h1>Rameniolla</h1> -->
-            <div id="logo">
-                <img src="./img/logo-transparent-png.png" height="120">
-                <p1>Київ, вулиця Хрещатик 38,<br>
-                    тц TSUM, 2 поверх, 01001</p1>
-            </div>
-        
-           
+       <header>
+    <div id="header-wrapper" style="display: flex; justify-content: space-between; align-items: center;">
+       
+        <div style="flex: 0;">
+            <button id="open-cart" class="cart-button">🛒 Кошик (<span id="cart-count">0</span>)</button>
+        </div>
 
-        </header>
+         <div id="logo" style="flex: 1;">
+            <img src="./img/logo-transparent-png.png" height="100">
+            <p1>Київ, вулиця Хрещатик 38,<br>тц TSUM, 2 поверх, 01001</p1>
+        </div>
+    </div>
+
+    <div id="autocomplete-list" class="autocomplete-items"></div>
+</header>
+
 
 
 
@@ -93,36 +98,62 @@ if (isset($_GET['leftchoise'])) {
 
 
         <main>
-            <?php if (null !== $selectedMenuL) : ?>
-                <h1><?= htmlspecialchars($leftMenu[$_GET['leftchoise']]) ?></h1>
-            <?php else : ?>
-                <h1>Ласкаво просимо до Rameniolla!</h1>
-            <?php endif; ?>
-            
-            <div class="main-content">
-                <h2> Пропозиції дня</h2>
-                <p> <br> Локшина, рамени, токпоккі, супи <br> <br> </p>
-                <button id="open-cart" class="cart-button">🛒 Кошик (<span id="cart-count">0</span>)</button>
-                <br> <br>
-            </div>
-            
-            <?php
-            $items = [];
-            if (null !== $selectedMenuL) {
-                $stmt = $pdo->prepare("SELECT * FROM `products` WHERE category = ?");
-                $stmt->execute([$selectedMenuL]);
-                $items = $stmt->fetchAll();
-            }
+           <?php
+                    if (null !== $selectedMenuL) {
+                        // Якщо вибрана категорія, показуємо її назву
+                        echo '<h2>' . htmlspecialchars($leftMenu[$selectedMenuL]) . '</h2>';
+                    } elseif (!empty($_GET['search'])) {
+                        // Якщо пошук є, але категорія — ні
+                        echo '<h2>Результати пошуку: "' . htmlspecialchars($_GET['search']) . '"</h2>';
+                    } else {
+                        // За замовчуванням
+                        echo '<h1>Ласкаво просимо до Rameniolla!</h1>';
+                    }
             ?>
 
+            
+    <form method="GET" action="" id="search-form">
+    <input type="text" id="search-input" name="search" autocomplete="off" placeholder="Пошук товарів..."> <br>
+    <button type="submit">🔍</button>
+</form>
 
 
 
-            <div id="catalog">
-    <?php if (!empty($items)) : ?>
-        <?php foreach ($items as $item) : ?>
+<div id="autocomplete-list" class="autocomplete-items"></div>
+
+ 
+            
+        <?php
+$query = "SELECT * FROM products";
+$params = [];
+
+if ($selectedMenuL !== null) {
+    $query .= " WHERE category = ?";
+    $params[] = $selectedMenuL;
+}
+
+if (!empty($_GET['search'])) {
+    $searchTerm = '%' . $_GET['search'] . '%';
+    if ($selectedMenuL !== null) {
+        $query .= " AND title LIKE ?";
+    } else {
+        $query .= " WHERE title LIKE ?";
+    }
+    $params[] = $searchTerm;
+}
+
+
+
+$stmt = $pdo->prepare($query);
+$stmt->execute($params);
+$items = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
+
+<div id="catalog">
+    <?php if ($items): ?>
+        <?php foreach ($items as $item): ?>
             <div class="item">
-                <img src="<?= htmlspecialchars($item['image_url']) ?>" alt="<?= htmlspecialchars($item['title']) ?>" height="120">
+                <img src="<?= htmlspecialchars($item['image_url']) ?>" alt="<?= htmlspecialchars($item['title']) ?>" height="100">
                 <div class="item-info">
                     <div class="item-title"><?= htmlspecialchars($item['title']) ?></div>
                     <div class="item-description"><?= htmlspecialchars($item['description']) ?></div>
@@ -130,10 +161,8 @@ if (isset($_GET['leftchoise'])) {
                 </div>
             </div>
         <?php endforeach; ?>
-    <?php elseif ($selectedMenuL !== null) : ?>
-        <p>У цій категорії немає товарів.</p>
-    <?php else : ?>
-        <p>Оберіть категорію зліва.</p>
+    <?php else: ?>
+        <p>Нічого не знайдено.</p>
     <?php endif; ?>
 </div>
 
