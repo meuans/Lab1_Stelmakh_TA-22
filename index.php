@@ -1,5 +1,7 @@
 <?php 
 require __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/connect.php'; // Підключення до бази даних
+
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
@@ -21,16 +23,19 @@ $httpClient = new Client([
  ];
 
 
- $selectedMenuL = null;
- if (isset($_GET['leftchoise'])) {
+$selectedMenuL = null;
+
+if (isset($_GET['leftchoise'])) {
     $selectedMenuL = $_GET['leftchoise'];
- } 
- if (!array_key_exists($selectedMenuL, $leftMenu)) {
-    $selectedMenuL = null;
-        header("HTTP/1.1 404 Not Found");
-        echo "404 not found";
+
+    // Якщо ключ не існує в меню — 404
+    if (!array_key_exists($selectedMenuL, $leftMenu)) {
+        http_response_code(404);
+        echo "404 - Категорія не знайдена.";
         exit;
- } 
+    }
+}
+
  
  
 ?>
@@ -101,81 +106,39 @@ $httpClient = new Client([
                 <br> <br>
             </div>
             
-            
+            <?php
+            $items = [];
+            if (null !== $selectedMenuL) {
+                $stmt = $pdo->prepare("SELECT * FROM `products` WHERE category = ?");
+                $stmt->execute([$selectedMenuL]);
+                $items = $stmt->fetchAll();
+            }
+            ?>
+
+
+
+
             <div id="catalog">
-
-                <div class="item">
-                    <img src="./img/sticker1.webp" alt="Shim Shin Ramyun" height="120">
-
-                    <div class="item-info">
-                        <div class="item-title">Shim Shin Ramyun</div>
-                        <div class="item-description">120г</div>
-                        <div class="item-price">Ціна: <span>99.9 грн</span></div>
-                    </div>
-
+    <?php if (!empty($items)) : ?>
+        <?php foreach ($items as $item) : ?>
+            <div class="item">
+                <img src="<?= htmlspecialchars($item['image_url']) ?>" alt="<?= htmlspecialchars($item['title']) ?>" height="120">
+                <div class="item-info">
+                    <div class="item-title"><?= htmlspecialchars($item['title']) ?></div>
+                    <div class="item-description"><?= htmlspecialchars($item['description']) ?></div>
+                    <div class="item-price">Ціна: <span><?= htmlspecialchars($item['price']) ?> грн</span></div>
                 </div>
-
-                <div class="item">
-                    <img src="./img/sticker2.webp" alt="Samyang 2X Spicy Hot" height="100">
-                    <div class="item-info">
-                        <div class="item-title">Samyang 2X Spicy Hot</div>
-                        <div class="item-description">140г</div>
-                        <div class="item-price">Ціна: <span>160 грн</span></div>
-                    </div>
-                </div>
-
-
-                <div class="item">
-                    <img src="./img/sticker3.webp" alt="Samyang Original Instant Ramen" height="100">
-                    <div class="item-info">
-                        <div class="item-title">Samyang Original Instant Ramen</div>
-                        <div class="item-description">120г</div>
-                        <div class="item-price">Ціна: <span>150 грн</span></div>
-                    </div>
-                </div>
-
-
-                <div class="item">
-                    <img src="./img/sticker4.webp" alt="NongShim Nudelsuppe" height="100">
-                    <div class="item-info">
-                        <div class="item-title">NongShim Nudelsuppe</div>
-                        <div class="item-description">120г</div>
-                        <div class="item-price">Ціна: <span>199 грн</span></div>
-                    </div>
-                </div>
-
-
-                <div class="item">
-                    <img src="./img/sticker5.webp" alt="Samyang Buldak Cheese Ramen Hot" height="100">
-                    <div class="item-info">
-                        <div class="item-title">Samyang Buldak Cheese Ramen Hot</div>
-                        <div class="item-description">140г</div>
-                        <div class="item-price">Ціна: <span>170 грн</span></div>
-                    </div>
-                </div>
-
-
-
-                <div class="item">
-                    <img src="./img/sticker6.webp" alt="Samyang Hot Chicken Ramen" height="100">
-                    <div class="item-info">
-                        <div class="item-title">Samyang Hot Chicken Ramen</div>
-                        <div class="item-description">105г</div>
-                        <div class="item-price">Ціна: <span>120 грн</span></div>
-                    </div>
-                </div>
-
-
-                <div class="item">
-                    <img src="./img/sticker7.webp" alt="Samyang Buldak Carbonara Ramen Hot" height="100">
-                    <div class="item-info">
-                        <div class="item-title">Samyang Buldak Carbonara Ramen Hot</div>
-                        <div class="item-description">140г</div>
-                        <div class="item-price">Ціна: <span>170 грн</span></div>
-                    </div>
-                </div>
-
             </div>
+        <?php endforeach; ?>
+    <?php elseif ($selectedMenuL !== null) : ?>
+        <p>У цій категорії немає товарів.</p>
+    <?php else : ?>
+        <p>Оберіть категорію зліва.</p>
+    <?php endif; ?>
+</div>
+
+            
+            
         </main>
 
 
