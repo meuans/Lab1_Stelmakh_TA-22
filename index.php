@@ -67,7 +67,7 @@ if (isset($_GET['leftchoise'])) {
         </div>
     </div>
 
-    <div id="autocomplete-list" class="autocomplete-items"></div>
+  
 </header>
 
 
@@ -111,12 +111,15 @@ if (isset($_GET['leftchoise'])) {
                     }
             ?>
 
-          
 
-    <form method="GET" action="" id="search-form">
+
+        <form method="GET" action="" id="search-form" style="position: relative;">
     <input type="text" id="search-input" name="search" autocomplete="off" placeholder="Пошук товарів..."> <br>
+    <div id="autocomplete-list" class="autocomplete-items"></div>
     <button type="submit">🔍</button>
-</form>
+     </form>
+
+
 
 
 
@@ -125,6 +128,8 @@ if (isset($_GET['leftchoise'])) {
  
             
         <?php
+
+        
 $query = "SELECT * FROM products";
 $params = [];
 

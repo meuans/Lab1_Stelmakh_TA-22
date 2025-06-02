@@ -108,143 +108,49 @@ document.getElementById("open-cart").addEventListener("click", () => {
     updateCart();
 });
 
-
 document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('search-input');
     const autocompleteList = document.getElementById('autocomplete-list');
 
-    searchInput.addEventListener('input', function() {
-        const query = this.value.trim();
-        if (query.length < 2) {
-            autocompleteList.innerHTML = '';
-            return;
-        }
+    searchInput.addEventListener('input', function () {
+    const query = this.value.trim();
+    if (query.length < 2) {
+        autocompleteList.innerHTML = '';
+        autocompleteList.classList.remove('show');
+        return;
+    }
 
-        fetch(`search_autocomplete.php?term=${encodeURIComponent(query)}`)
-            .then(response => response.json())
-            .then(data => {
+    fetch(`search_autocomplete.php?term=${encodeURIComponent(query)}`)
+        .then(res => res.json())
+        .then(data => {
+            autocompleteList.innerHTML = '';
+            if (data.length === 0) {
+                autocompleteList.classList.remove('show');
+                return;
+            }
+            data.forEach(item => {
+                const div = document.createElement('div');
+                div.textContent = item;
+                div.className = 'autocomplete-item';
+                div.onclick = () => {
+                    searchInput.value = item;
+                    autocompleteList.innerHTML = '';
+                    autocompleteList.classList.remove('show');
+                };
+                autocompleteList.appendChild(div);
+            });
+            autocompleteList.classList.add('show');
+        });
+});
+
+        // При кліку поза формою — ховаємо список
+        document.addEventListener('click', function (e) {
+            if (!document.getElementById('search-form').contains(e.target)) {
                 autocompleteList.innerHTML = '';
-                if (data.length === 0) {
-                    return;
-                }
-                data.forEach(item => {
-                    const div = document.createElement('div');
-                    div.textContent = item;
-                    div.classList.add('autocomplete-item');
-                    div.addEventListener('click', () => {
-                        searchInput.value = item;
-                        autocompleteList.innerHTML = '';
-                    });
-                    autocompleteList.appendChild(div);
-                });
-            });
-    });
-
-    document.addEventListener('click', function(e) {
-        if (e.target !== searchInput) {
-            autocompleteList.innerHTML = '';
-        }
-    });
-});
+                autocompleteList.classList.remove('show');
+            }
+        });
 
 
-document.addEventListener('DOMContentLoaded', function() {
-    const input = document.getElementById('search-input');
-    const resultsBox = document.getElementById('autocomplete-results');
-
-    input.addEventListener('input', function() {
-        const query = this.value.trim();
-
-        if (query.length === 0) {
-            resultsBox.style.display = 'none';
-            resultsBox.innerHTML = '';
-            return;
-        }
-
-        fetch('search_autocomplete.php?term=' + encodeURIComponent(query))
-            .then(response => response.json())
-            .then(data => {
-                if (data.length === 0) {
-                    resultsBox.style.display = 'none';
-                    resultsBox.innerHTML = '';
-                    return;
-                }
-
-                resultsBox.innerHTML = '';
-                data.forEach(item => {
-                    const div = document.createElement('div');
-                    div.textContent = item;
-                    div.style.padding = '5px';
-                    div.style.cursor = 'pointer';
-
-                    div.addEventListener('click', function() {
-                        input.value = this.textContent;
-                        resultsBox.style.display = 'none';
-                    });
-
-                    resultsBox.appendChild(div);
-                });
-
-                resultsBox.style.display = 'block';
-            })
-            .catch(() => {
-                resultsBox.style.display = 'none';
-                resultsBox.innerHTML = '';
-            });
-    });
-
-    // При кліку поза інпутом — приховуємо список
-    document.addEventListener('click', function(e) {
-        if (e.target !== input && e.target.parentNode !== resultsBox) {
-            resultsBox.style.display = 'none';
-        }
-    });
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    const input = document.getElementById('search-input');
-    const resultsBox = document.getElementById('autocomplete-list');
-
-    if (!input || !resultsBox) return; // перевірка, що елементи є на сторінці
-
-    input.addEventListener('input', () => {
-        const query = input.value.trim();
-        if (!query) {
-            resultsBox.innerHTML = '';
-            resultsBox.style.display = 'none';
-            return;
-        }
-
-        fetch('search_autocomplete.php?term=' + encodeURIComponent(query))
-            .then(res => res.json())
-            .then(data => {
-                if (data.length === 0) {
-                    resultsBox.innerHTML = '';
-                    resultsBox.style.display = 'none';
-                    return;
-                }
-                resultsBox.innerHTML = '';
-                data.forEach(item => {
-                    const div = document.createElement('div');
-                    div.textContent = item;
-                    div.classList.add('autocomplete-item');
-                    div.style.cursor = 'pointer';
-                    div.style.padding = '5px';
-                    div.addEventListener('click', () => {
-                        input.value = item;
-                        resultsBox.innerHTML = '';
-                        resultsBox.style.display = 'none';
-                    });
-                    resultsBox.appendChild(div);
-                });
-                resultsBox.style.border = '1px solid #ccc';
-                resultsBox.style.display = 'block';
-            });
-    });
-
-    document.addEventListener('click', e => {
-        if (e.target !== input) {
-            resultsBox.style.display = 'none';
-        }
-    });
-});
+   
+  });
